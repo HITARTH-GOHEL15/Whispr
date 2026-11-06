@@ -1,4 +1,4 @@
-package com.app.whispr.data
+package com.app.whispr.data.remote.dto
 
 
 import com.google.gson.annotations.SerializedName
@@ -21,7 +21,7 @@ data class Message(
     @SerializedName("created_at")
     var createdAt: String? = null,
     @SerializedName("id")
-    var id: Int? = null,
+    var id: Long? = null,
     @SerializedName("message_type")
     var messageType: String? = null,
     @SerializedName("sender")

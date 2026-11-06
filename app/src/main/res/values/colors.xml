@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+<color name="primary">#7357F6</color>
+<color name="primary_dark">#5940D8</color>
+<color name="background">#F7F7FC</color>
+<color name="surface">#FFFFFF</color>
+<color name="text_primary">#191927</color>
+<color name="text_secondary">#85859A</color>
+<color name="message_sent">#7357F6</color>
+<color name="message_received">#FFFFFF</color>
+<color name="online">#22C55E</color>
+<color name="divider">#EEEEF3</color>
+<color name="system_message">#9999A8</color>
 </resources>

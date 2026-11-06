@@ -1,4 +1,4 @@
-package com.app.whispr.data
+package com.app.whispr.data.remote.dto
 
 
 import com.google.gson.annotations.SerializedName

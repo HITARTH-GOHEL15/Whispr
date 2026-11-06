@@ -1,10 +1,10 @@
 package com.app.whispr.api
 
 
-import com.app.whispr.data.GroupDetailResponseDto
-import com.app.whispr.data.GroupMessagesDto
-import com.app.whispr.data.GroupRequest
-import com.app.whispr.data.GroupResponseDto
+import com.app.whispr.data.remote.dto.GroupDetailResponseDto
+import com.app.whispr.data.remote.dto.GroupMessagesDto
+import com.app.whispr.data.remote.dto.GroupRequest
+import com.app.whispr.data.remote.dto.GroupResponseDto
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET

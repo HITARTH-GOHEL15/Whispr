@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/groupsFragment">
+
+    <fragment
+        android:id="@+id/groupsFragment"
+        android:name="com.app.whispr.ui.groups.GroupsFragment"
+        android:label="Groups"
+        tools:layout="@layout/fragment_groups">
+        <action
+            android:id="@+id/action_groupsFragment_to_createGroupFragment"
+            app:destination="@+id/groupsFragment" />
+
+        <action
+            android:id="@+id/action_groupsFragment_to_chatFragment"
+            app:destination="@+id/chatFragment" />
+    </fragment>
+
+     <fragment
+         android:id="@+id/createGroupFragment"
+         android:name="com.app.whispr.ui.createGroups.CreateGroupFragment"
+         android:label="Create Groups"
+         tools:layout="@layout/fragment_create_group">
+
+         <action
+             android:id="@+id/action_createGroupFragment_to_chatFragment"
+             app:destination="@id/chatFragment"/>
+
+     </fragment>
+
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.app.whispr.ui.chat.ChatFragment"
+        android:label="Chat"
+        tools:layout="@layout/fragment_chat"/>
+
+</navigation>

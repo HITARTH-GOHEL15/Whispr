@@ -35,6 +35,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
@@ -56,6 +57,9 @@ dependencies {
 
     // WebSocket and HTTP networking
     implementation(libs.okhttp)
+    // Gson
+    implementation("com.google.code.gson:gson:2.10.1")
+    implementation("com.squareup.okhttp3:logging-interceptor:5.1.0")
 
     // Kotlin Coroutines
     implementation(libs.kotlinx.coroutines.android)

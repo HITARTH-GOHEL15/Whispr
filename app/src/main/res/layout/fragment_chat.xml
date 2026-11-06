@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="@color/background">
+
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="28dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Back"
+        android:src="@drawable/arrow_back_24dp_e3e3e3_fill0_wght400_grad0_opsz24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/cardview_dark_background" />
+
+    <TextView
+    android:id="@+id/tvChatName"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="12dp"
+    android:text="General Chat"
+    android:textColor="@color/text_primary"
+    android:textSize="17sp"
+    android:textStyle="bold"
+    app:layout_constraintStart_toEndOf="@id/btnBack"
+    app:layout_constraintEnd_toStartOf="@id/btnMembers"
+    app:layout_constraintTop_toTopOf="parent"/>
+
+<TextView
+    android:id="@+id/tvConnectionStatus"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="3dp"
+    android:text="Connecting..."
+    android:textColor="@color/text_secondary"
+    android:textSize="12sp"
+    app:layout_constraintStart_toStartOf="@id/tvChatName"
+    app:layout_constraintTop_toBottomOf="@id/tvChatName"/>
+
+<ImageButton
+    android:id="@+id/btnMembers"
+    android:layout_width="44dp"
+    android:layout_height="44dp"
+    android:layout_marginEnd="12dp"
+    android:background="?attr/selectableItemBackgroundBorderless"
+    android:contentDescription="Online members"
+    android:src="@android:drawable/ic_menu_myplaces"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent"/>
+
+<View
+    android:id="@+id/toolbarDivider"
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:background="@color/divider"
+    app:layout_constraintTop_toBottomOf="@id/btnBack"/>
+
+<TextView
+    android:id="@+id/tvOnlineMembers"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="16dp"
+    android:paddingVertical="10dp"
+    android:text="●  0 people online"
+    android:textColor="@color/online"
+    android:textSize="12sp"
+    app:layout_constraintTop_toBottomOf="@id/toolbarDivider"/>
+
+<androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/rvMessages"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:clipToPadding="false"
+    android:paddingHorizontal="12dp"
+    android:paddingTop="12dp"
+    android:paddingBottom="12dp"
+    app:layout_constraintTop_toBottomOf="@id/tvOnlineMembers"
+    app:layout_constraintBottom_toTopOf="@id/tvTyping"/>
+
+<TextView
+    android:id="@+id/tvTyping"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="18dp"
+    android:paddingVertical="6dp"
+    android:textColor="@color/text_secondary"
+    android:textSize="12sp"
+    android:visibility="gone"
+    app:layout_constraintBottom_toTopOf="@id/messageInputContainer"/>
+
+<LinearLayout
+    android:id="@+id/messageInputContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="12dp"
+    android:background="@color/surface"
+    app:layout_constraintBottom_toBottomOf="parent">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/messageInputLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:hint="Write a message..."
+        app:boxBackgroundColor="@color/background"
+        app:boxBackgroundMode="filled"
+        app:boxCornerRadiusTopStart="24dp"
+        app:boxCornerRadiusTopEnd="24dp"
+        app:boxCornerRadiusBottomStart="24dp"
+        app:boxCornerRadiusBottomEnd="24dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapSentences|textMultiLine"
+            android:maxLength="2000"
+            android:maxLines="4"
+            android:minHeight="48dp"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="10dp"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSend"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="8dp"
+        android:contentDescription="Send message"
+        android:minWidth="0dp"
+        android:padding="0dp"
+        android:text="➤"
+        android:textSize="20sp"
+        app:cornerRadius="18dp"/>
+
+</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
