@@ -15,7 +15,7 @@ import retrofit2.http.Query
 interface ChatApi {
 
     //Get Groups
-    @GET("/groups/")
+    @GET("groups/")
     suspend fun getGroups(
         @Query("limit") limit: Int = 20,
         @Query("offset") offset: Int = 0
@@ -23,7 +23,7 @@ interface ChatApi {
 
 
     //Create Groups
-    @POST("/groups/")
+    @POST("groups/")
     suspend fun createGroups(
         @Body groupRequest: GroupRequest
     ) : Response<GroupResponseDto>

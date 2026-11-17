@@ -4,8 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.app.whispr.data.remote.dto.GroupMessagesDto
-import com.app.whispr.data.remote.dto.GroupResponseDto
 import com.app.whispr.data.remote.dto.Result
 import com.app.whispr.databinding.ItemGroupBinding
 

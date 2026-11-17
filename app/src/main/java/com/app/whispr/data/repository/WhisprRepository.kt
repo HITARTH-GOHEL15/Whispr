@@ -33,12 +33,6 @@ class WhisprRepository(
                 api.getGroups()
             )
 
-            if(response.status == Status.SUCCESS) {
-
-                val groups = response.data?.results
-                    .orEmpty()
-            }
-
             emit(response)
         } catch (e: Exception) {
             emit(responseHandler.handleException(e))

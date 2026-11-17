@@ -1,5 +1,6 @@
 package com.app.whispr.ui.viewModel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.app.movieexplorer2.utils.resource.Status
@@ -46,28 +47,33 @@ class RestApiViewModel @Inject constructor(
 
         repository.getGroups()
             .onEach { state ->
+
                 when (state.status) {
 
                     Status.LOADING -> {
-
+                        // Keep existing loading state
                     }
 
                     Status.SUCCESS -> {
-                        val groups =
-                            state.data
-                                ?.results
-                                .orEmpty()
 
-                        _uiState.value =
-                            _uiState.value.copy(
-                                groups = groups,
-                                groupsLoaded = true
-                            )
+                        Log.d("GROUP_DEBUG", "SUCCESS received")
+                        Log.d("GROUP_DEBUG", "Response: ${state.data}")
+                        Log.d("GROUP_DEBUG", "Results: ${state.data?.results}")
+
+                        val groups = state.data?.results.orEmpty()
+
+                        Log.d("GROUP_DEBUG", "Groups size: ${groups.size}")
+
+                        _uiState.value = _uiState.value.copy(
+                            groups = groups,
+                            groupsLoaded = true
+                        )
 
                         updateLoadingState()
                     }
 
                     Status.ERROR -> {
+
                         _uiState.value =
                             _uiState.value.copy(
                                 groupsLoaded = true,
@@ -77,7 +83,8 @@ class RestApiViewModel @Inject constructor(
                         updateLoadingState()
                     }
                 }
-            }.launchIn(viewModelScope)
+            }
+            .launchIn(viewModelScope)
     }
 
     fun getGroupMessages(slug: String) {
@@ -139,6 +146,50 @@ class RestApiViewModel @Inject constructor(
                     }
                 }
             }.launchIn(viewModelScope)
+    }
+
+    fun createGroup(
+        name: String,
+        email: String,
+        description: String,
+        slug: String
+    ) {
+        repository.createGroup(
+            name = name,
+            email = email,
+            description = description,
+            slug = slug
+        )
+            .onEach { result ->
+
+                when (result.status) {
+
+                    Status.LOADING -> {
+                        _uiState.value = _uiState.value.copy(
+                            isLoading = true,
+                            error = null,
+                            success = false
+                        )
+                    }
+
+                    Status.SUCCESS -> {
+                        _uiState.value = _uiState.value.copy(
+                            isLoading = false,
+                            success = true,
+                            error = null
+                        )
+                    }
+
+                    Status.ERROR -> {
+                        _uiState.value = _uiState.value.copy(
+                            isLoading = false,
+                            success = false,
+                            error = result.error
+                        )
+                    }
+                }
+            }
+            .launchIn(viewModelScope)
     }
 }
 

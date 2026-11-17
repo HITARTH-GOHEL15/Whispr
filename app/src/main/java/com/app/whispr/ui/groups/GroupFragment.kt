@@ -2,10 +2,12 @@
 package com.app.whispr.ui.groups
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -48,14 +50,15 @@ class GroupsFragment : Fragment() {
 
             val name = result.name ?: return@GroupsAdapter
 
-            // Navigate to ChatFragment.
-            // Pass the room slug/name as arguments when your
-            // navigation graph and ChatFragment arguments are ready.
-
             findNavController().navigate(
-                R.id.action_groupsFragment_to_chatFragment
+                R.id.action_groupsFragment_to_chatFragment,
+                bundleOf(
+                    "groupName" to name,
+                )
             )
         }
+
+
 
         binding.rvGroups.apply {
             layoutManager = LinearLayoutManager(requireContext())
@@ -73,9 +76,11 @@ class GroupsFragment : Fragment() {
             ) {
 
                 viewModel.uiState.collect { state ->
-
-                    binding.progressBar.visibility =
-                        if (state.isLoading) View.VISIBLE else View.GONE
+                    Log.d("GROUP_DEBUG", "Loading: ${state.isLoading}")
+                    Log.d("GROUP_DEBUG", "Loaded: ${state.groupsLoaded}")
+                    Log.d("GROUP_DEBUG", "Success: ${state.success}")
+                    Log.d("GROUP_DEBUG", "Groups: ${state.groups.size}")
+                    Log.d("GROUP_DEBUG", "Error: ${state.error}")
 
                     when {
 
@@ -83,34 +88,28 @@ class GroupsFragment : Fragment() {
                             binding.tvEmpty.visibility = View.GONE
                         }
 
-                        state.success -> {
+                        state.error != null -> {
+                            binding.rvGroups.visibility = View.GONE
+                            binding.tvEmpty.visibility = View.VISIBLE
+                        }
+
+                        state.groupsLoaded -> {
 
                             val groups = state.groups
 
-                            // Adapt this line if your API returns
-                            // a nullable list.
                             adapter.submitList(groups)
 
-                            binding.tvEmpty.visibility =
-                                if (groups.isEmpty()) View.VISIBLE else View.GONE
-
                             binding.rvGroups.visibility =
-                                if (groups.isEmpty()) View.GONE else View.VISIBLE
-                        }
+                                if (groups.isNotEmpty()) View.VISIBLE
+                                else View.GONE
 
-                        state.error != null -> {
+                            binding.tvEmpty.visibility =
+                                if (groups.isEmpty()) View.VISIBLE
+                                else View.GONE
 
-                            binding.rvGroups.visibility = View.GONE
-                            binding.tvEmpty.visibility = View.VISIBLE
-
-                            binding.tvEmpty.text =
-                                state.error.errorMessage ?: "Something went wrong"
-
-                            Toast.makeText(
-                                requireContext(),
-                                state.error.errorMessage ?: "Failed to load groups",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            if (groups.isEmpty()) {
+                                binding.tvEmpty.text = "No groups found"
+                            }
                         }
                     }
                 }
@@ -126,8 +125,11 @@ class GroupsFragment : Fragment() {
 
         setupRecyclerView()
         observeUiState()
-
         viewModel.getGroups()
+
+        binding.btnCreateGroup.setOnClickListener {
+            findNavController().navigate(R.id.action_groupsFragment_to_createGroupFragment)
+        }
     }
 
     override fun onDestroyView() {
